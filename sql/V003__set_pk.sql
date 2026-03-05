@@ -1,0 +1,1 @@
+ALTER TABLE "sets" ADD FOREIGN KEY ("series_id") REFERENCES "series" ("id");

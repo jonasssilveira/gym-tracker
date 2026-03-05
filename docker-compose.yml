@@ -1,0 +1,30 @@
+services:
+  postgresDB:
+    image: postgres:17.5
+    environment:
+      POSTGRES_PASSWORD: password
+      POSTGRES_USER: postgres
+      POSTGRES_DB: gymtracker
+    ports:
+      - "5432:5432"
+    networks:
+      - database
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d gymtracker"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  flyway:
+    image: flyway/flyway:latest
+    command: -url=jdbc:postgresql://postgresDB:5432/gymtracker -user=postgres -password=password migrate
+    volumes:
+      - ./sql:/flyway/sql
+    networks:
+      - database
+    depends_on:
+      postgresDB:
+        condition: service_healthy
+networks:
+  database:
+    driver: bridge
