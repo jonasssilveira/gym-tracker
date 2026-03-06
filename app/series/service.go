@@ -19,8 +19,8 @@ func NewService(repo SeriesRepository) Service {
 	return Service{repo: repo}
 }
 
-func (ss Service) GetALlSeries() []Series {
-	series, err := ss.repo.GetALlSeries()
+func (ss Service) GetALlSeriesByChatID(userID int64) []Series {
+	series, err := ss.repo.GetSeriesByChatID(userID)
 	if err != nil {
 		logger.Warn("Series Not Found")
 		return []Series{}

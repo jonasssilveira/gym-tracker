@@ -1,13 +1,11 @@
 package user
 
-type User struct {
-	ID          uint64 `json:"id"`
-	FullName    string `json:"fullname"`
-	ChatID      int64  `json:"chat_id"`
-	DateCreated int64  `json:"date_created"`
-	DateUpdated int64  `json:"date_updated"`
-}
+import "time"
 
-func IsNil(user User) bool {
-	return user.FullName == "" && user.ChatID == 0
+type User struct {
+	ID          uint64    `gorm:"primarykey"`
+	FullName    string    `gorm:"not null"`
+	ChatID      int64     `gorm:"not null"`
+	DateCreated time.Time `gorm:"not null"`
+	DateUpdated time.Time `gorm:"not null"`
 }

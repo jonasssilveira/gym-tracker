@@ -41,7 +41,6 @@ func server() {
 	router := gin.Default()
 	seriesGroup := router.Group("/series")
 	{
-		seriesGroup.GET("/", seriesHandler.GetAllSeries)
 		seriesGroup.POST("/", seriesHandler.CreateSeries)
 		seriesGroup.POST("/finalize", seriesHandler.FinalizeSerie)
 

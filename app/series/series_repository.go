@@ -9,8 +9,8 @@ type SeriesRepository struct {
 }
 
 type Repository interface {
-	GetALlSeries() ([]Series, error)
-	GetSeriesByID(id uint64) (Series, error)
+	GetSeriesByID(id uint64) ([]Series, error)
+	GetSeriesByChatID(chatID int64) (Series, error)
 	GetSeriesByName(name string) (Series, error)
 	GetActualSeries() (Series, error)
 	CreateSeries(series Series) (Series, error)
@@ -21,9 +21,9 @@ func NewSeriesRepository(db *gorm.DB) SeriesRepository {
 	return SeriesRepository{db: *db}
 }
 
-func (r SeriesRepository) GetALlSeries() ([]Series, error) {
+func (r SeriesRepository) GetSeriesByChatID(chatID int64) ([]Series, error) {
 	var series []Series
-	if err := r.db.Preload("Sets").Find(&series).Error; err != nil {
+	if err := r.db.Preload("Sets").Find(&series, "chat_id = ?", chatID).Error; err != nil {
 		return nil, err
 	}
 	return series, nil

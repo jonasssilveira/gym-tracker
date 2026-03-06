@@ -6,11 +6,9 @@ import (
 )
 
 type TrainingVolumeLoad struct {
-	series []series.Series
 }
 
-func (tvl TrainingVolumeLoad) calculate() Results {
-	series := tvl.series
+func (tvl TrainingVolumeLoad) Calculate(series []series.Series) Results {
 	var results Results
 	serieVolume := make(map[time.Time]SerieVolume)
 	for _, serie := range series {

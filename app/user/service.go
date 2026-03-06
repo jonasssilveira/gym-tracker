@@ -49,12 +49,12 @@ func (us Service) GetByUsername(username string) (User, error) {
 }
 
 func (us Service) IsNew(chatID int64) bool {
-	user, err := us.repo.GetByChatID(chatID)
+	_, err := us.repo.GetByChatID(chatID)
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
 			return true
 		}
 		return false
 	}
-	return IsNil(user)
+	return false
 }

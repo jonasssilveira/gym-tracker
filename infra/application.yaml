@@ -14,7 +14,7 @@ database:
     password: password
     database: gymtracker
 telegram:
-  token:
+  token: 8549316894:AAEcFSX3tGRNI7y8NLmwJWspkJtLntWWt34
   debug: true
   timeout: 10000
   new_update: 0

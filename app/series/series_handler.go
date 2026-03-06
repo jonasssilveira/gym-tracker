@@ -15,17 +15,6 @@ func NewSeriesHandler(service Service) *SeriesHandler {
 	return &SeriesHandler{service: service}
 }
 
-func (handler *SeriesHandler) GetAllSeries(c *gin.Context) {
-	series := handler.service.GetALlSeries()
-
-	seriesDTO := make([]SeriesDTO, len(series))
-	for i := range series {
-		seriesDTO[i] = FromEntity(series[i])
-	}
-
-	api.OKResponse(c.Writer, seriesDTO)
-}
-
 func (handler *SeriesHandler) CreateSeries(c *gin.Context) {
 	var seriesDTO SeriesDTO
 

@@ -3,6 +3,7 @@ package bot
 import (
 	"errors"
 	"fmt"
+	"gym-tracker/app/calculos"
 	"gym-tracker/app/series"
 	"gym-tracker/app/set"
 	"gym-tracker/app/user"
@@ -132,6 +133,12 @@ func (t Telegram) handleCommand(chatID int64, text string, userExtracted user.Us
 		serieID, _ := t.seriesService.FinalizeSerie()
 		t.setService.FinalizeSet(serieID)
 		t.bot.Send(tgbotapi.NewMessage(chatID, "Série finalizada com sucesso"))
+	case string(Calculate):
+		t.states.NextState(chatID)
+		var tvl calculos.TrainingVolumeLoad
+		allSeries := t.seriesService.GetALlSeriesByChatID(chatID)
+		result := tvl.Calculate(allSeries)
+		fmt.Println(result)
 	}
 }
 
